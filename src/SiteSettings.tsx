@@ -2,7 +2,7 @@
 /** @jsxFrag React.Fragment */
 
 import log from 'electron-log';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import React, { useState, useEffect, useContext } from 'react';
 import { Button, ButtonGroup, ControlGroup, FormGroup, InputGroup, Menu, NonIdealState, Popover } from '@blueprintjs/core';
 import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';

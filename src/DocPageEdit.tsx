@@ -4,7 +4,7 @@
 import nodePath from 'path';
 import update from 'immutability-helper';
 import log from 'electron-log';
-import { css, jsx } from '@emotion/core';
+import { css, jsx } from '@emotion/react';
 import React, { useContext, useEffect, useState } from 'react';
 
 import { Hooks } from '@riboseinc/paneron-extension-kit/types';
