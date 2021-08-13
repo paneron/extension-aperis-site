@@ -15,11 +15,12 @@ const sep = path.posix.sep;
 
 
 const initializeDataset: DatasetMigrationFunction = async (opts) => {
-  opts?.onProgress?.("Creating top-level page…");
+  const pagepath = `docs/index.yaml`
+  opts?.onProgress?.(`Creating top-level page: ${pagepath}`);
   return {
     versionAfter: '1.0.0-alpha33',
     bufferChangeset: {
-      '/docs/index.yaml': {
+      [pagepath]: {
         oldValue: null,
         newValue: yamlFile.serialize(FIRST_PAGE_STUB, {})[sep],
       },
