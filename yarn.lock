@@ -1022,10 +1022,10 @@
   resolved "https://registry.yarnpkg.com/@riboseinc/paneron-extension-kit/-/paneron-extension-kit-2.0.0-alpha4.tgz#ecfb58afc1056773c2b13915ef064bd64dc18f70"
   integrity sha512-HqQ8uujPCSQtz+15QcyLSiym+O5+j7ATgdUkMuAmMNpnfd+ODTlBnGvHc81fPAKAVNzTWGRTmhSf3JTSXxv8VQ==
 
-"@riboseinc/reprose@^1.0.0-alpha9":
-  version "1.0.0-alpha9"
-  resolved "https://registry.yarnpkg.com/@riboseinc/reprose/-/reprose-1.0.0-alpha9.tgz#03e8bef34ea11af3b7122b871c00ca136ca5fcab"
-  integrity sha512-1nHjeomOf7QOxzSlivvP/y8waeIIeUTmGRBtrKs1EuEgatUme53QtQXZltADyyaKEMIdbSEpVGvrpGLHyjtZ0Q==
+"@riboseinc/reprose@^1.0.0-alpha10":
+  version "1.0.0-alpha10"
+  resolved "https://registry.yarnpkg.com/@riboseinc/reprose/-/reprose-1.0.0-alpha10.tgz#ed68e3d62c1f912d0323a262988d91a2b379529f"
+  integrity sha512-BBQhYdIIZd7x/HF6JPhumSavXPpFo+iwzvu63iw7mSm4UN2R4RhA28MGBXD8BIYYFpKUdDumOyOvde3+W7NmRw==
   dependencies:
     "@babel/polyfill" "^7.11.5"
     prosemirror-commands "^1.1.4"
