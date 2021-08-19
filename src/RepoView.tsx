@@ -17,6 +17,8 @@ import { useSiteSettings } from './hooks';
 import { DocPageEdit } from './DocPageEdit';
 import { SiteSettings } from './SiteSettings';
 import PageSection from './PageSection';
+import { getDocPagePaths } from './util';
+import { getUpdatePageChangeset } from './update';
 
 
 Object.assign(console, log);
@@ -31,7 +33,10 @@ export default function () {
     useIndexDescription,
     getFilteredIndexPosition,
     getObjectPathFromFilteredIndex,
+    updateObjects,
   } = useContext(DatasetContext);
+
+  const [isBusy, ] = useState(false);
 
   const allPageIndexRequest = useFilteredIndex({
     queryExpression: `return objPath.endsWith(".yaml")`,
@@ -78,9 +83,9 @@ export default function () {
 
   //log.debug("Page sync status", syncStatus.value)
 
-  //const allPageData = useDocPageData(
-  //  useObjectData,
-  //  Object.keys(syncStatus.value));
+  const allPageData = useDocPageData(
+    useObjectData,
+    Object.keys(syncStatus.value));
 
   //const selectedPageData: SourceDocPageData | null = allPageData.value[selectedPagePath] || null;
 
@@ -99,12 +104,12 @@ export default function () {
   //   selectedPageData?.media || [],
   //   docPageFilePath);
 
-  // const selectedPageChildren = Object.keys(allPageData.value).
-  // filter(path => path.startsWith(`${selectedPagePath}/`)) || [];
+  const selectedPageChildren = Object.keys(allPageData.value).
+  filter(path => path.startsWith(`${selectedPagePath}/`)) || [];
 
-  // const selectedPageHasChildren = selectedPagePath
-  //   ? selectedPageChildren.length > 0
-  //   : false;
+  const selectedPageHasChildren = selectedPagePath
+    ? selectedPageChildren.length > 0
+    : false;
 
   // function handleNodeClick(n: ITreeNode) {
   //   selectPage(n.id as string);
@@ -295,67 +300,67 @@ export default function () {
   //   return await handleApplyChangeset(changeset, `Delete media #${idx} from ${selectedPagePath}`);
   // }
 
-  // function handleSavePage(
-  //     docPath: string,
-  //     oldPage: SourceDocPageData | null,
-  //     newPage: SourceDocPageData | null) {
+  function handleSavePage(
+      docPath: string,
+      oldPage: SourceDocPageData | null,
+      newPage: SourceDocPageData | null) {
 
-  //   log.debug("Updating doc page", docPath, oldPage, newPage);
+    log.debug("Updating doc page", docPath, oldPage, newPage);
 
-  //   let changeset: ObjectChangeset;
-  //   let verb: string;
+    let changeset: ObjectChangeset;
+    let verb: string;
 
-  //   if (oldPage !== null && newPage !== null) {
-  //     const filePaths = getDocPagePaths(docPath, allFiles);
-  //     verb = "Update";
-  //     changeset = getUpdatePageChangeset(
-  //       filePaths,
-  //       selectedPageHasChildren,
-  //       newPage)
+    if (oldPage !== null && newPage !== null) {
+      const filePaths = getDocPagePaths(docPath, allFiles);
+      verb = "Update";
+      changeset = getUpdatePageChangeset(
+        filePaths,
+        selectedPageHasChildren,
+        newPage)
 
-  //   } else if (oldPage !== null) {
-  //     const filePaths = getDocPagePaths(docPath, allFiles);
-  //     if (!selectedPageData || docPath !== selectedPagePath || yaml.dump(oldPage) !== yaml.dump(selectedPageData)) {
-  //       throw new Error("Cannot delete a page that is not selected");
-  //     }
-  //     verb = "Delete";
-  //     log.debug("Selected page media", selectedPageMediaData.value);
-  //     log.debug("Selected page has children", selectedPageHasChildren);
-  //     changeset = getDeletePageChangeset(
-  //       filePaths,
-  //       selectedPageData,
-  //       selectedPageMediaData.value,
-  //       selectedPageHasChildren)
+    } else if (oldPage !== null) {
+      const filePaths = getDocPagePaths(docPath, allFiles);
+      if (!selectedPageData || docPath !== selectedPagePath || yaml.dump(oldPage) !== yaml.dump(selectedPageData)) {
+        throw new Error("Cannot delete a page that is not selected");
+      }
+      verb = "Delete";
+      log.debug("Selected page media", selectedPageMediaData.value);
+      log.debug("Selected page has children", selectedPageHasChildren);
+      changeset = getDeletePageChangeset(
+        filePaths,
+        selectedPageData,
+        selectedPageMediaData.value,
+        selectedPageHasChildren)
 
-  //   } else if (newPage !== null) {
-  //     verb = "Create";
-  //     const parentDocPath = path.dirname(docPath);
-  //     if (parentDocPath !== selectedPagePath) {
-  //       throw new Error("Mismatching parent page paths");
-  //     }
-  //     const parentData = allPageData.value[selectedPagePath];
-  //     if (!parentData) {
-  //       throw new Error("Unable to get parent page data when creating a page");
-  //     }
-  //     changeset = getAddPageChangeset(
-  //       filepathCandidates(docPath)[0],
-  //       newPage,
-  //       getDocPagePaths(selectedPagePath, Object.keys(syncStatus.asFiles)),
-  //       parentData,
-  //       selectedPageMediaData.value);
+    } else if (newPage !== null) {
+      verb = "Create";
+      const parentDocPath = path.dirname(docPath);
+      if (parentDocPath !== selectedPagePath) {
+        throw new Error("Mismatching parent page paths");
+      }
+      const parentData = allPageData.value[selectedPagePath];
+      if (!parentData) {
+        throw new Error("Unable to get parent page data when creating a page");
+      }
+      changeset = getAddPageChangeset(
+        filepathCandidates(docPath)[0],
+        newPage,
+        getDocPagePaths(selectedPagePath, Object.keys(syncStatus.asFiles)),
+        parentData,
+        selectedPageMediaData.value);
 
-  //   } else {
-  //     throw new Error("Invalid action when saving page");
-  //   }
+    } else {
+      throw new Error("Invalid action when saving page");
+    }
 
-  //   return handleApplyChangeset(changeset, `${verb} ${docPath}`).then(() => {
-  //     if (newPage === null) {
-  //       selectPage(path.dirname(docPath));
-  //     } else {
-  //       selectPage(docPath);
-  //     }
-  //   });
-  // }
+    return handleApplyChangeset(changeset, `${verb} ${docPath}`).then(() => {
+      if (newPage === null) {
+        selectPage(path.dirname(docPath));
+      } else {
+        selectPage(docPath);
+      }
+    });
+  }
 
   // async function handleChangePath(oldPath: string, newPath: string, leaveRedirect: boolean) {
   //   log.debug("Moving doc page", oldPath, newPath, selectedPageMediaData.value);
@@ -412,7 +417,7 @@ export default function () {
   //   />
   // }
 
-  //const readOnly = isBusy || !updateObjects;
+  const readOnly = isBusy || !updateObjects;
 
   return (
     <div css={css`flex: 1; display: flex; flex-flow: row nowrap; overflow: hidden;`}>
@@ -436,7 +441,7 @@ export default function () {
               pagePath={selectedPagePath}
               urlPrefix={urlPrefix}
 
-              //onSave={!readOnly ? handleSavePage : undefined}
+              onSave={!readOnly ? handleSavePage : undefined}
               //onAddMedia={!readOnly ? handleAddMedia : undefined}
               //onDeleteMedia={(!readOnly) ? handleDeleteMedia : undefined}
               //onUpdatePath={readOnly ? undefined : handleChangePath}
