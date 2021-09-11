@@ -29,6 +29,9 @@
     "featured": true,
     "requiredHostAppVersion": "1.0.0-beta1"
   },
+  "resolutions": {
+    "@types/react": "16.9.49"
+  },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.4.0",
