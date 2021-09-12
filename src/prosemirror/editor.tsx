@@ -30,8 +30,8 @@ import image from '@riboseinc/reprose/features/image/author';
 
 import BaseEditor, { EditorProps } from '@riboseinc/reprose/author/editor';
 
-import { getContentsSchema, getImageFeatureOptions, summarySchema } from './schema';
 import { LinkNodeAttrs } from '@riboseinc/reprose/features/links/schema';
+import { getContentsSchema, getImageFeatureOptions, summarySchema } from './schema';
 import { FieldWithErrors } from '../formValidation';
 import MenuWrapper from '../widgets/MenuWrapper';
 //import { RepositoryViewProps } from '@riboseinc/paneron-extension-kit/types';
@@ -66,7 +66,7 @@ export const ContentsEditor: React.FC<FinalEditorProps & {
   const schema = getContentsSchema({ protocol: `file://`, imageDir: props.mediaDir });
 
   async function requestImageURL(e: MouseEvent) {
-    return props.onChooseImageClick!(e);
+    return await props.onChooseImageClick!(e);
   }
   return (
     <ClassNames>
@@ -119,8 +119,8 @@ function (props) {
         {({ css, cx }) => (
           <BaseEditor
             css={css`flex: 1; overflow-y: auto; padding: 1rem; background: ${Colors.GRAY5};`}
-            autoFocus
-            MenuBar={MenuBar}
+            autoFocus={props.onChange !== undefined}
+            MenuBar={props.onChange ? MenuBar : null}
             proseMirrorClassName={`
               ${Classes.ELEVATION_3}
               ${css({
@@ -276,7 +276,6 @@ const MenuBar: React.FC<MenuBarProps> = function ({ menu, view }) {
           </ControlGroup>
         </React.Fragment>
       )}
-
     </MenuWrapper>
   );
 };

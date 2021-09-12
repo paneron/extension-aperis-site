@@ -1,5 +1,5 @@
-import { ObjectChangeset } from '@riboseinc/paneron-extension-kit/types';
-import { SiteSettings } from '../SiteSettings';
+import { ObjectChangeset } from '@riboseinc/paneron-extension-kit/types/objects';
+import type { SiteSettings } from '../types';
 
 
 const ROBOTS = "User-agent: *";
@@ -18,7 +18,6 @@ function getAperisSetupChangeset(settings: SiteSettings, remove: boolean): Objec
   return {
 
     '.gitignore': {
-      encoding: 'utf-8',
       oldValue: undefined,
       newValue: remove ? null : `
 _DocPage
@@ -30,7 +29,6 @@ dist
     },
 
     'static.config.js': {
-      encoding: 'utf-8',
       oldValue: undefined,
       newValue: remove ? null : `
         import path from 'path'
@@ -74,7 +72,6 @@ dist
     },
 
     'src/GlobalStyle.ts': {
-      encoding: 'utf-8',
       oldValue: undefined,
       newValue: remove ? null : `
         import { createGlobalStyle } from 'styled-components'
@@ -122,7 +119,6 @@ dist
     },
 
     'src/App.tsx': {
-      encoding: 'utf-8',
       oldValue: undefined,
       newValue: remove ? null : `
         import React from 'react'
@@ -163,7 +159,6 @@ dist
     },
 
     'src/index.tsx': {
-      encoding: 'utf-8',
       oldValue: undefined,
       newValue: remove ? null : `
         import React from 'react'
@@ -207,93 +202,90 @@ dist
     },
 
     'public/robots.txt': {
-      encoding: 'utf-8',
       oldValue: undefined,
       newValue: remove ? null : ROBOTS,
     },
 
     'tsconfig.json': {
-      encoding: 'utf-8',
       oldValue: undefined,
-      newValue: remove ? null : `
-{
-  "compileOnSave": false,
-  "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
-    "jsx": "preserve",
-    "allowJs": false,
-    "moduleResolution": "node",
-    "allowSyntheticDefaultImports": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "removeComments": false,
-    "preserveConstEnums": true,
-    "sourceMap": true,
-    "skipLibCheck": true,
-    "noEmit": true,
-    "baseUrl": ".",
-    "paths": {
-      "components/*": ["src/components/*"],
-      "containers/*": ["src/containers/*"],
-      "types/*": ["types/*"]
-    },
-    "lib": ["dom", "es2015", "es2016"]
-  },
-  "exclude": ["artifacts/**/*", "dist/**/*", "public/**/*", "node_modules"]
-}
-      `,
+      newValue: remove ? null : JSON.parse(`
+        {
+          "compileOnSave": false,
+          "compilerOptions": {
+            "target": "esnext",
+            "module": "esnext",
+            "jsx": "preserve",
+            "allowJs": false,
+            "moduleResolution": "node",
+            "allowSyntheticDefaultImports": true,
+            "noImplicitAny": true,
+            "noUnusedLocals": true,
+            "noUnusedParameters": true,
+            "removeComments": false,
+            "preserveConstEnums": true,
+            "sourceMap": true,
+            "skipLibCheck": true,
+            "noEmit": true,
+            "baseUrl": ".",
+            "paths": {
+              "components/*": ["src/components/*"],
+              "containers/*": ["src/containers/*"],
+              "types/*": ["types/*"]
+            },
+            "lib": ["dom", "es2015", "es2016"]
+          },
+          "exclude": ["artifacts/**/*", "dist/**/*", "public/**/*", "node_modules"]
+        }
+      `),
     },
 
     'package.json': {
-      encoding: 'utf-8',
       oldValue: undefined,
-      newValue: remove ? null : `
-{
-  "name": "my-aperis-site",
-  "private": true,
-  "scripts": {
-    "start": "react-static start",
-    "stage": "react-static build --staging",
-    "build": "react-static build",
-    "bundle": "react-static bundle",
-    "export": "react-static export",
-    "serve": "serve dist -p 3000 -s"
-  },
-  "dependencies": {
-    "@reach/router": "^1.2.1",
-    "@riboseinc/aperis-doc-pages": "^1.0.0-pre8",
-    "@riboseinc/react-static-plugin-aperis-doc-pages": "^1.0.23",
-    "axios": "^0.19.0",
-    "chroma-js": "^2.1.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "react-static": "^7.4.2",
-    "react-static-plugin-reach-router": "^7.2.0",
-    "react-static-plugin-sitemap": "^7.2.0",
-    "react-static-plugin-source-filesystem": "^7.2.0",
-    "react-static-plugin-styled-components": "^7.3.0",
-    "react-static-plugin-typescript": "^7.2.0",
-    "styled-components": "^5.1.1"
-  },
-  "devDependencies": {
-    "@types/chroma-js": "^2.0.0",
-    "@types/node": "^12.7.2",
-    "@types/reach__router": "^1.2",
-    "@types/react": "^16.9.1",
-    "@types/react-dom": "^16.8.5",
-    "@types/react-helmet": "^6.1.0",
-    "@types/react-hot-loader": "^4.1.0",
-    "@types/styled-components": "^5.1.2",
-    "@types/webpack-env": "^1.14.0",
-    "react-hot-loader": "^4.12.11",
-    "react-static-plugin-file-watch-reload": "^1.0.4",
-    "serve": "^11.1.0",
-    "typescript": "^3.9.6"
-  }
-}
-      `
+      newValue: remove ? null : JSON.parse(`
+        {
+          "name": "my-aperis-site",
+          "private": true,
+          "scripts": {
+            "start": "react-static start",
+            "stage": "react-static build --staging",
+            "build": "react-static build",
+            "bundle": "react-static bundle",
+            "export": "react-static export",
+            "serve": "serve dist -p 3000 -s"
+          },
+          "dependencies": {
+            "@reach/router": "^1.2.1",
+            "@riboseinc/aperis-doc-pages": "^1.0.0-pre8",
+            "@riboseinc/react-static-plugin-aperis-doc-pages": "^1.0.23",
+            "axios": "^0.19.0",
+            "chroma-js": "^2.1.0",
+            "react": "^16.9.0",
+            "react-dom": "^16.9.0",
+            "react-static": "^7.4.2",
+            "react-static-plugin-reach-router": "^7.2.0",
+            "react-static-plugin-sitemap": "^7.2.0",
+            "react-static-plugin-source-filesystem": "^7.2.0",
+            "react-static-plugin-styled-components": "^7.3.0",
+            "react-static-plugin-typescript": "^7.2.0",
+            "styled-components": "^5.1.1"
+          },
+          "devDependencies": {
+            "@types/chroma-js": "^2.0.0",
+            "@types/node": "^12.7.2",
+            "@types/reach__router": "^1.2",
+            "@types/react": "^16.9.1",
+            "@types/react-dom": "^16.8.5",
+            "@types/react-helmet": "^6.1.0",
+            "@types/react-hot-loader": "^4.1.0",
+            "@types/styled-components": "^5.1.2",
+            "@types/webpack-env": "^1.14.0",
+            "react-hot-loader": "^4.12.11",
+            "react-static-plugin-file-watch-reload": "^1.0.4",
+            "serve": "^11.1.0",
+            "typescript": "^3.9.6"
+          }
+        }
+      `)
     },
 
   };

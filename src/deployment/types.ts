@@ -1,4 +1,4 @@
-import { ObjectChangeset } from '@riboseinc/paneron-extension-kit/types';
+import { ObjectChangeset } from '@riboseinc/paneron-extension-kit/types/objects';
 import { SiteSettings } from '../types';
 
 export interface DeploymentSetup {
