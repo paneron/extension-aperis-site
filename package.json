@@ -27,7 +27,7 @@
     "title": "Aperis",
     "iconURL": "https://www.aperis.org/mark.png",
     "featured": true,
-    "requiredHostAppVersion": "1.0.0-beta1"
+    "requiredHostAppVersion": "1.0.0-beta12"
   },
   "resolutions": {
     "@types/react": "16.9.49"
