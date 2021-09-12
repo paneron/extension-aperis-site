@@ -33,6 +33,7 @@ import BaseEditor, { EditorProps } from '@riboseinc/reprose/author/editor';
 import { getContentsSchema, getImageFeatureOptions, summarySchema } from './schema';
 import { LinkNodeAttrs } from '@riboseinc/reprose/features/links/schema';
 import { FieldWithErrors } from '../formValidation';
+import MenuWrapper from '../widgets/MenuWrapper';
 //import { RepositoryViewProps } from '@riboseinc/paneron-extension-kit/types';
 
 
@@ -279,15 +280,6 @@ const MenuBar: React.FC<MenuBarProps> = function ({ menu, view }) {
     </MenuWrapper>
   );
 };
-
-export const MenuWrapper: React.FC<Record<never, never>> = function ({ children }) {
-  return (
-    <div css={css`display: flex; flex-flow: row wrap; padding: .5rem 1rem; background: ${Colors.LIGHT_GRAY3}`}>
-      {children}
-    </div>
-  );
-};
-
 
 // Link support
 
