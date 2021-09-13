@@ -13,15 +13,9 @@
     "*.js",
     "*.js.map",
     "*.d.ts",
-    "migrations/*.js",
-    "migrations/*.js.map",
-    "migrations/*.d.ts",
-    "deployment/*.js",
-    "deployment/*.js.map",
-    "deployment/*.d.ts",
-    "prosemirror/*.js",
-    "prosemirror/*.js.map",
-    "prosemirror/*.d.ts"
+    "**/*.js",
+    "**/*.js.map",
+    "**/*.d.ts"
   ],
   "paneronExtension": {
     "title": "Aperis",
