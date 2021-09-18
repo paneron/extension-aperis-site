@@ -37,7 +37,7 @@
     "@emotion/react": "^11.4.0",
     "@emotion/styled": "11.3.0",
     "@riboseinc/paneron-extension-kit": "2.0.0-alpha7",
-    "@riboseinc/reprose": "^1.0.0-alpha10",
+    "@riboseinc/reprose": "^1.0.0-alpha11",
     "@types/dagre": "^0.7.46",
     "@types/fs-extra": "^9.0.1",
     "@types/js-yaml": "^3.12.5",
