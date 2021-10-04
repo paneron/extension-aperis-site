@@ -5,6 +5,7 @@ import { Icon } from '@blueprintjs/core';
 import React from 'react';
 import { css, jsx } from '@emotion/react';
 import { SuperSidebarConfig } from '@riboseinc/paneron-extension-kit/widgets/TabbedWorkspace/types';
+import HelpTooltip from '@riboseinc/paneron-extension-kit/widgets/HelpTooltip';
 import Search from './Search';
 import Subpages from './Subpages';
 import Media from './Media';
@@ -56,7 +57,11 @@ export const sidebarConfig: SuperSidebarConfig<SidebarID> = {
     title: "Illustrations",
     blocks: [{
       key: 'existing',
-      title: "Available illustrations",
+      title: <>
+        Available illustrations
+        &ensp;
+        <HelpTooltip content="To add an illustration in the content of selected page (wrapped as a figure), select an illustration here and click “Insert image” in editor toolbar." />
+      </>,
       content: <Media />,
       nonCollapsible: true,
     }, {
