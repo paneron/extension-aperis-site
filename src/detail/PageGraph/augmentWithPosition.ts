@@ -27,9 +27,9 @@ export default function augmentWithPosition(
       el.targetPosition = (isHorizontal ? 'left' : 'top') as Position;
       el.sourcePosition = (isHorizontal ? 'right' : 'bottom') as Position;
 
-      // unfortunately we need this little hack to pass a slightly different position
-      // to notify react flow about the change. Moreover we are shifting the dagre node position
-      // (anchor=center center) to the top left so it matches the react flow node anchor point (top left).
+      // Shifts dagre node position to the top left,
+      // so it matches the react flow node anchor point (top left).
+      // Math.random() is necessary to notify react-flow about the change.
       el.position = {
         x: nodeWithPosition.x - nodeWidth / 2 + Math.random() / 1000 + offset,
         y: nodeWithPosition.y - nodeHeight / 2 + offset,
