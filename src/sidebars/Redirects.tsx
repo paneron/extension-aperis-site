@@ -6,7 +6,7 @@ import React, { useContext, useState } from 'react';
 import { jsx } from '@emotion/react';
 import { Button, ControlGroup, InputGroup } from '@blueprintjs/core';
 import { AperisContext } from '../context';
-import useSingleSourceEntryData from '../useSingleDocPageData';
+import useSingleSourceEntryData from '../useSingleSourceEntryData';
 import { StaticPage } from '../types';
 
 

@@ -6,7 +6,7 @@ import { jsx } from '@emotion/react';
 import { TabbedWorkspaceContext } from '@riboseinc/paneron-extension-kit/widgets/TabbedWorkspace/context';
 import { AperisContext } from '../context';
 import { Button } from '@blueprintjs/core';
-import useSingleSourceEntryData from '../useSingleDocPageData';
+import useSingleSourceEntryData from '../useSingleSourceEntryData';
 import { StaticPage } from '../types';
 import { SOURCE_ENTRY } from '../protocolRegistry';
 import { getParentPagePath } from '../util';

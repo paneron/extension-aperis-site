@@ -6,7 +6,7 @@ import React from 'react';
 import { jsx } from '@emotion/react';
 import { NonIdealState, Spinner } from '@blueprintjs/core';
 
-import useSingleSourceEntryData from '../../useSingleDocPageData';
+import useSingleSourceEntryData from '../../useSingleSourceEntryData';
 import { SourceEntryViewConfig, SourceEntryType } from '../../types';
 import { getSourceEntryType } from '../../util';
 

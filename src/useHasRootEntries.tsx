@@ -1,5 +1,5 @@
 import { LandingPage, StaticPage } from './types';
-import useSingleSourceEntryData from './useSingleDocPageData';
+import useSingleSourceEntryData from './useSingleSourceEntryData';
 
 
 export default function useHasRootEntries():
