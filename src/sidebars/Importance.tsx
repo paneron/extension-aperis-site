@@ -42,6 +42,7 @@ const Importance: React.VoidFunctionComponent<Record<never, never>> = function (
       <NumericInput
         value={editedImportance ?? pageData?.importance ?? 0}
         onValueChange={setEditedImportance}
+        fill
         rightElement={
           <Button
             minimal
@@ -49,6 +50,7 @@ const Importance: React.VoidFunctionComponent<Record<never, never>> = function (
             disabled={editedImportance === null || pageData === null}
             intent={editedImportance !== null ? 'primary' : undefined}
             onClick={updateImportance}
+            text="Confirm"
           />}
       />
     </>
