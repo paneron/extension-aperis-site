@@ -4,18 +4,21 @@ import SourceEntry from './detail/source-entries';
 import PageGraph from './detail/PageGraph';
 import PostArchive from './detail/PostArchive';
 import SiteSettings from './detail/SiteSettings';
+import Docs from './detail/Docs';
 
 
 export const SOURCE_ENTRY = 'sourceentry';
 export const SITE_SETTINGS = 'sitesettings';
 export const PAGE_GRAPH = 'pagegraph';
 export const POST_ARCHIVE = 'postarchive';
+export const DOCS = 'docs';
 
 export const protocols = [
   SOURCE_ENTRY,
   SITE_SETTINGS,
   PAGE_GRAPH,
   POST_ARCHIVE,
+  DOCS,
 ] as const;
 
 export type Protocol = typeof protocols[number];
@@ -29,6 +32,7 @@ const protocolRegistry: ProtocolRegistry<Protocol> = {
   sitesettings: SiteSettings,
   pagegraph: PageGraph,
   postarchive: PostArchive,
+  docs: Docs,
 };
 
 export default protocolRegistry;
