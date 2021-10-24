@@ -4,7 +4,7 @@
 import React, { useContext } from 'react';
 import { jsx } from '@emotion/react';
 import { TabbedWorkspaceContext } from '@riboseinc/paneron-extension-kit/widgets/TabbedWorkspace/context';
-import { PAGE_GRAPH, POST_ARCHIVE, SITE_SETTINGS, SOURCE_ENTRY } from './protocolRegistry';
+import { DOCS, PAGE_GRAPH, POST_ARCHIVE, SITE_SETTINGS, SOURCE_ENTRY } from './protocolRegistry';
 import { AperisContext } from './context';
 import { IconSize, Menu, MenuDivider, MenuItem, Spinner } from '@blueprintjs/core';
 import useHasRootEntries from './useHasRootEntries';
@@ -48,6 +48,12 @@ const NewTabMenu: React.FC<Record<never, never>> = function () {
         onClick={() => spawnTab(`${SITE_SETTINGS}:index`)}
       />;
 
+  const helpItem = <MenuItem
+    icon="help"
+    text="View documentation"
+    onClick={() => spawnTab(`${DOCS}:index`)}
+  />;
+
   const prompt = landingExists === true
     ? <Menu>
         <MenuDivider title="Pages" />
@@ -61,6 +67,8 @@ const NewTabMenu: React.FC<Record<never, never>> = function () {
         <MenuItem disabled icon="calendar" text="Post archive" onClick={() => spawnTab(`${POST_ARCHIVE}:index`)} />
         <MenuDivider />
         {settingsItem}
+        <MenuDivider />
+        {helpItem}
       </Menu>
     : landingExists === undefined
       ? <Spinner />
@@ -76,6 +84,7 @@ const NewTabMenu: React.FC<Record<never, never>> = function () {
                 spawnTab(`${SOURCE_ENTRY}:/index.yaml`);
               }
             }} />
+          {helpItem}
         </Menu>;
 
   return prompt;
