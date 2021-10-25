@@ -8,8 +8,8 @@ import { TabbedWorkspaceContext } from '@riboseinc/paneron-extension-kit/widgets
 import { DOCS } from '../../protocolRegistry';
 
 import { navEntryToParentRoute, getRoute } from './util';
-import NavMenuContents from './NavMenuContents';
 import { NAV, ROUTES } from './contents';
+import NavMenuContents from './NavMenuContents';
 import DocsBreadcrumbs from './DocsBreadcrumbs';
 
 
