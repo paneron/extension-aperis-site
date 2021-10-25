@@ -61,12 +61,17 @@ const DocsPage: React.FC<{ uri: string }> = React.memo(function ({ uri }) {
 
       main = View
         ? <>
-            <View />
+            <section className={Classes.RUNNING_TEXT}>
+              <View />
+            </section>
             {inThisSection
-              ? <footer>{inThisSection}</footer>
+              ? <footer css={css`margin-top: 1em;`}>{inThisSection}</footer>
               : null}
           </>
-        : <NonIdealState description={inThisSection ?? "There’s no content to show here yet."} />;
+        : <NonIdealState
+            title={route.title}
+            description={inThisSection ?? "There’s no content to show here yet."}
+          />;
 
     } else {
       main = <NonIdealState
@@ -86,11 +91,15 @@ const DocsPage: React.FC<{ uri: string }> = React.memo(function ({ uri }) {
 
   return (
     <div css={css`position: absolute; inset: 0; display: flex; flex-flow: column nowrap;`}>
-      <div css={css`flex: 0; padding: 0 30px 0 15px`}>
-        {route
-          ? <DocsBreadcrumbs route={route} onNavigate={handleNavigate} currentPath={uri} />
-          : undefined}
-      </div>
+      {route
+        ? <DocsBreadcrumbs
+            route={route}
+            onNavigate={handleNavigate}
+            currentPath={uri}
+            css={css`flex: 0; padding: 5px 30px 5px 15px`}
+            className={Classes.ELEVATION_1}
+          />
+        : undefined}
       <div css={css`flex: 1; padding: 15px; overflow-y: auto;`}>
         {main}
       </div>

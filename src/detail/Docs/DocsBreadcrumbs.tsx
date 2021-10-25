@@ -11,8 +11,13 @@ import { ParsedRoute } from './types';
 import NavMenuContents from './NavMenuContents';
 
 
-const DocsBreadcrumbs: React.FC<{ route: ParsedRoute; currentPath: string; onNavigate?: (e: React.MouseEvent, path: string) => void; }> =
-function ({ route, currentPath, onNavigate }) {
+const DocsBreadcrumbs: React.FC<{
+  route: ParsedRoute;
+  currentPath: string;
+  onNavigate?: (e: React.MouseEvent, path: string) => void;
+  className?: string;
+}> =
+function ({ route, currentPath, onNavigate, className }) {
   const breadcrumbs: BreadcrumbProps[] = [...route.parentRoutes, navEntryToParentRoute(route.entry)].map((pr, prIdx) => {
     const fullPath = getFullEntryPath(pr.path, route.parentRoutes.slice(0, prIdx));
     const current = fullPath === currentPath;
@@ -56,14 +61,14 @@ function ({ route, currentPath, onNavigate }) {
         <Breadcrumb
           {...props}
           href={undefined}
-          css={css`white-space: nowrap; ${!props.current ? 'font-size: 100%;' : ''}`}
+          css={css`white-space: nowrap;`}
         />
       </Popover2>
     );
   }
 
   return (
-    <Breadcrumbs breadcrumbRenderer={renderer} items={breadcrumbs} />
+    <Breadcrumbs breadcrumbRenderer={renderer} items={breadcrumbs} className={className} />
   );
 };
 

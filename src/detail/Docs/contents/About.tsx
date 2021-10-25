@@ -3,7 +3,7 @@
 
 import { jsx } from '@emotion/react';
 import React, { useContext } from 'react';
-import { H4, OL } from '@blueprintjs/core';
+import { Callout, H4, OL } from '@blueprintjs/core';
 import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';
 
 
@@ -16,6 +16,13 @@ export default function () {
       intended for editing Aperis sites.
     </p>
 
+    <Callout intent="warning" title="Test preview version note">
+      <p>
+        Aperis core, as well as this extension, are under active development.
+        Some features are missing, and there are gaps in documentation.
+      </p>
+    </Callout>
+
     <H4>What is Aperis?</H4>
 
     <p>
@@ -24,13 +31,6 @@ export default function () {
 
     <p>
       A project website can contain different associated software, specifications, respective documentation & reference, and news/blog articles.
-    </p>
-
-    <H4>Test preview version note</H4>
-
-    <p>
-      Aperis itself and this extension are under active development.
-      Some features are missing, and there are gaps in documentation.
     </p>
 
     <H4>Why Aperis?</H4>

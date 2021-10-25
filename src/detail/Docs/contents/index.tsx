@@ -1,20 +1,25 @@
 import { NavEntry } from '../types';
 import { buildRoutes } from '../util';
 
-import Intro from './Intro';
-import Restructuring from './Restructuring';
-import Editing from './Editing';
-import Links from './Editing_Links';
+import About from './About';
+import Restructuring from './Topic_Restructuring';
+import Links from './HowTo_Link';
+import Illustrations from './HowTo_Illustration';
+import Editing_Basics from './Topic_SemanticEditing';
 
 
 export const NAV: NavEntry[] = [
   {
     path: '/', route: { title: "Aperis extension docs" }, children: [
-      { path: 'introduction/', route: { component: Intro, title: "Introduction" } },
-      { path: 'editing/', route: { component: Editing, title: "Editing content" }, children: [
-        { path: 'links/', route: { component: Links, title: "Working with links" } },
+      { path: 'about/', route: { component: About, title: "About" } },
+      { path: 'topics/', route: { title: "Topics" }, children: [
+        { path: 'semantic-editing/', route: { component: Editing_Basics, title: "Semantic text editing" } },
+        { path: 'restructuring/', route: { component: Restructuring, title: "Restructuring sites" } },
       ] },
-      { path: 'restructuring/', route: { component: Restructuring, title: "Restructuring sites" } },
+      { path: 'how-tos/', route: { title: "How-to guides" }, children: [
+        { path: 'insert-link/', route: { component: Links, title: "Insert a link" } },
+        { path: 'insert-illustration/', route: { component: Illustrations, title: "Insert an illustration" } },
+      ] },
     ]
   },
 ];
