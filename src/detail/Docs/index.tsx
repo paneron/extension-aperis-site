@@ -49,7 +49,7 @@ const DocsPage: React.FC<{ uri: string }> = React.memo(function ({ uri }) {
       const View = route.component;
 
       const inThisSection = route.entry.children
-        ? <Menu className={Classes.ELEVATION_2}>
+        ? <Menu>
             {View ? <MenuDivider title="Further in this section" /> : null}
             <NavMenuContents
               entries={route.entry.children ?? []}
