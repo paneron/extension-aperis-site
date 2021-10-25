@@ -1,17 +1,16 @@
 /** @jsx jsx */
 /** @jsxFrag React.Fragment */
 
-import { Button, ButtonGroup, Classes, H3, Menu, MenuDivider, NonIdealState } from '@blueprintjs/core';
-import { Popover2, Popover2InteractionKind } from '@blueprintjs/popover2';
 import { jsx, css } from '@emotion/react';
-import { TabbedWorkspaceContext } from '@riboseinc/paneron-extension-kit/widgets/TabbedWorkspace/context';
 import React, { useContext } from 'react';
+import { Classes, H3, Menu, MenuDivider, NonIdealState } from '@blueprintjs/core';
+import { TabbedWorkspaceContext } from '@riboseinc/paneron-extension-kit/widgets/TabbedWorkspace/context';
 import { DOCS } from '../../protocolRegistry';
 
-import { navEntryToParentRoute, getRoute, getFullEntryPath } from './util';
-import { NavMenuContents } from './NavMenuContents';
+import { navEntryToParentRoute, getRoute } from './util';
+import NavMenuContents from './NavMenuContents';
 import { NAV, ROUTES } from './contents';
-import { ParsedRoute } from './types';
+import DocsBreadcrumbs from './DocsBreadcrumbs';
 
 
 const DocsPage: React.FC<{ uri: string }> = React.memo(function ({ uri }) {
@@ -94,57 +93,17 @@ const DocsPage: React.FC<{ uri: string }> = React.memo(function ({ uri }) {
 
   return (
     <div css={css`position: absolute; inset: 0; display: flex; flex-flow: column nowrap;`}>
-      <div css={css`flex: 0; padding: 10px;`}>
+      <div css={css`flex: 0; padding: 0 30px 0 15px`}>
         {route
-          ? <Breadcrumbs route={route} onNavigate={handleNavigate} />
+          ? <DocsBreadcrumbs route={route} onNavigate={handleNavigate} currentPath={uri} />
           : undefined}
       </div>
-      <div css={css`flex: 1; padding: 0 10px 1rem 10px; overflow-y: auto;`}>
+      <div css={css`flex: 1; padding: 15px; overflow-y: auto;`}>
         {main}
       </div>
     </div>
   );
 });
-
-
-const Breadcrumbs: React.FC<{ route: ParsedRoute, onNavigate?: (e: React.MouseEvent, path: string) => void }> = function ({ route, onNavigate }) {
-  return (
-    <ButtonGroup>
-      {[ ...route.parentRoutes, navEntryToParentRoute(route.entry) ].map((pr, prIdx) => {
-        const fullPath = getFullEntryPath(pr.path, route.parentRoutes.slice(0, prIdx));
-        const parentPathComponents = fullPath.split('/');
-        const parentPath = `${parentPathComponents.slice(0, parentPathComponents.length - 2).join('/')}/`;
-        const parentRoute = getRoute(ROUTES, parentPath);
-        return (
-          <Popover2
-              interactionKind={Popover2InteractionKind.HOVER}
-              minimal
-              content={fullPath !== '/' && (parentRoute?.entry.children ?? []).length > 0
-                ? <Menu>
-                    <NavMenuContents
-                      entries={parentRoute!.entry.children!}
-                      parentRoutes={route.parentRoutes.slice(0, prIdx)}
-                      currentPath={fullPath}
-                      onNavigate={onNavigate}
-                    />
-                  </Menu>
-                : undefined}
-              placement="bottom">
-            <Button
-                outlined
-                small
-                icon={prIdx === 0 ? 'help' : undefined}
-                rightIcon="chevron-right"
-                disabled={!onNavigate}
-                onClick={onNavigate ? e => onNavigate!(e, fullPath) : undefined}>
-              {pr.title}
-            </Button>
-          </Popover2>
-        )
-      })}
-    </ButtonGroup>
-  );
-}
 
 
 const DocsPageTitle: React.FC<{ uri: string }> = function ({ uri }) {

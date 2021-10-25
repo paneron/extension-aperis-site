@@ -17,7 +17,7 @@ interface NavMenuContentsProps {
   className?: string;
 }
 
-export const NavMenuContents: React.VoidFunctionComponent<NavMenuContentsProps> =
+const NavMenuContents: React.VoidFunctionComponent<NavMenuContentsProps> =
 function ({ entries, onNavigate, enterChildren, parentRoutes, currentPath, className }) {
   return <>
     {entries.map(entry => <MenuItem
@@ -40,3 +40,5 @@ function ({ entries, onNavigate, enterChildren, parentRoutes, currentPath, class
     />)}
   </>;
 };
+
+export default NavMenuContents;
