@@ -116,6 +116,7 @@ const DocsPage: React.FC<{ uri: string }> = React.memo(function ({ uri }) {
                       placement="bottom">
                     <Button
                         outlined
+                        small
                         icon="chevron-right"
                         title={`${fullPath} — ${JSON.stringify(parentRoute, undefined, 2)}`}
                         onClick={e => handleNavigate(e, fullPath)}>
