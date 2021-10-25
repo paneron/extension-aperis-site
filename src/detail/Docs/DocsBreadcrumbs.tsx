@@ -17,7 +17,7 @@ function ({ route, currentPath, onNavigate }) {
     const fullPath = getFullEntryPath(pr.path, route.parentRoutes.slice(0, prIdx));
     const current = fullPath === currentPath;
     return {
-      icon: prIdx === 0 ? 'home' : undefined,
+      icon: prIdx === 0 ? 'help' : undefined,
       text: pr.title,
       onClick: onNavigate && !current
         ? (e: React.MouseEvent) => onNavigate!(e, fullPath)
@@ -56,7 +56,7 @@ function ({ route, currentPath, onNavigate }) {
         <Breadcrumb
           {...props}
           href={undefined}
-          css={css`white-space: nowrap;`}
+          css={css`white-space: nowrap; ${!props.current ? 'font-size: 100%;' : ''}`}
         />
       </Popover2>
     );

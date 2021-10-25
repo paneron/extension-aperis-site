@@ -3,7 +3,7 @@
 
 import { jsx, css } from '@emotion/react';
 import React, { useContext } from 'react';
-import { Classes, H3, Menu, MenuDivider, NonIdealState } from '@blueprintjs/core';
+import { Classes, Menu, MenuDivider, NonIdealState } from '@blueprintjs/core';
 import { TabbedWorkspaceContext } from '@riboseinc/paneron-extension-kit/widgets/TabbedWorkspace/context';
 import { DOCS } from '../../protocolRegistry';
 
@@ -48,32 +48,25 @@ const DocsPage: React.FC<{ uri: string }> = React.memo(function ({ uri }) {
     if (route) {
       const View = route.component;
 
-      const inThisSection = <Menu className={Classes.ELEVATION_2}>
-        {route.parentRoutes.length > 0
-          ? <MenuDivider title="Further in this section" />
-          : null}
-        <NavMenuContents
-          entries={route.entry.children ?? []}
-          onNavigate={handleNavigate}
-          parentRoutes={[ ...route.parentRoutes, navEntryToParentRoute(route.entry) ]}
-        />
-      </Menu>;
+      const inThisSection = route.entry.children
+        ? <Menu className={Classes.ELEVATION_2}>
+            {View ? <MenuDivider title="Further in this section" /> : null}
+            <NavMenuContents
+              entries={route.entry.children ?? []}
+              onNavigate={handleNavigate}
+              parentRoutes={[ ...route.parentRoutes, navEntryToParentRoute(route.entry) ]}
+            />
+          </Menu>
+        : undefined;
 
       main = View
         ? <>
-            <H3>{route.title}</H3>
             <View />
-            {route.entry.children
-              ? <footer>
-                  {inThisSection}
-                </footer>
+            {inThisSection
+              ? <footer>{inThisSection}</footer>
               : null}
           </>
-        : <NonIdealState
-            icon="help"
-            title={route.title}
-            description={inThisSection}
-          />;
+        : <NonIdealState description={inThisSection ?? "There’s no content to show here yet."} />;
 
     } else {
       main = <NonIdealState
