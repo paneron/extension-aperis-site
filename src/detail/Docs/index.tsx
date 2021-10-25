@@ -11,6 +11,7 @@ import { DOCS } from '../../protocolRegistry';
 import { navEntryToParentRoute, getRoute, getFullEntryPath } from './util';
 import { NavMenuContents } from './NavMenuContents';
 import { NAV, ROUTES } from './contents';
+import { ParsedRoute } from './types';
 
 
 const DocsPage: React.FC<{ uri: string }> = React.memo(function ({ uri }) {
@@ -28,6 +29,7 @@ const DocsPage: React.FC<{ uri: string }> = React.memo(function ({ uri }) {
   const navMenuContents = <Menu>
     <NavMenuContents
       currentPath={uri}
+      onNavigate={handleNavigate}
       entries={NAV[0]?.children ?? []}
       parentRoutes={[navEntryToParentRoute(NAV[0])]}
       enterChildren
@@ -53,6 +55,7 @@ const DocsPage: React.FC<{ uri: string }> = React.memo(function ({ uri }) {
           : null}
         <NavMenuContents
           entries={route.entry.children ?? []}
+          onNavigate={handleNavigate}
           parentRoutes={[ ...route.parentRoutes, navEntryToParentRoute(route.entry) ]}
         />
       </Menu>;
@@ -93,39 +96,7 @@ const DocsPage: React.FC<{ uri: string }> = React.memo(function ({ uri }) {
     <div css={css`position: absolute; inset: 0; display: flex; flex-flow: column nowrap;`}>
       <div css={css`flex: 0; padding: 10px;`}>
         {route
-          ? <ButtonGroup>
-              {[ ...route.parentRoutes, navEntryToParentRoute(route.entry) ].map((pr, prIdx) => {
-                // TODO: Split out into a component
-                const fullPath = getFullEntryPath(pr.path, route.parentRoutes.slice(0, prIdx));
-                const parentPathComponents = fullPath.split('/');
-                const parentPath = `${parentPathComponents.slice(0, parentPathComponents.length - 2).join('/')}/`;
-                const parentRoute = getRoute(ROUTES, parentPath);
-                return (
-                  <Popover2
-                      interactionKind={Popover2InteractionKind.HOVER}
-                      minimal
-                      content={fullPath !== '/' && (parentRoute?.entry.children ?? []).length > 0
-                        ? <Menu>
-                            <NavMenuContents
-                              entries={parentRoute!.entry.children!}
-                              parentRoutes={route.parentRoutes.slice(0, prIdx)}
-                              currentPath={fullPath}
-                            />
-                          </Menu>
-                        : undefined}
-                      placement="bottom">
-                    <Button
-                        outlined
-                        small
-                        icon="chevron-right"
-                        title={`${fullPath} — ${JSON.stringify(parentRoute, undefined, 2)}`}
-                        onClick={e => handleNavigate(e, fullPath)}>
-                      {pr.title}
-                    </Button>
-                  </Popover2>
-                )
-              })}
-            </ButtonGroup>
+          ? <Breadcrumbs route={route} onNavigate={handleNavigate} />
           : undefined}
       </div>
       <div css={css`flex: 1; padding: 0 10px 1rem 10px; overflow-y: auto;`}>
@@ -134,6 +105,46 @@ const DocsPage: React.FC<{ uri: string }> = React.memo(function ({ uri }) {
     </div>
   );
 });
+
+
+const Breadcrumbs: React.FC<{ route: ParsedRoute, onNavigate?: (e: React.MouseEvent, path: string) => void }> = function ({ route, onNavigate }) {
+  return (
+    <ButtonGroup>
+      {[ ...route.parentRoutes, navEntryToParentRoute(route.entry) ].map((pr, prIdx) => {
+        const fullPath = getFullEntryPath(pr.path, route.parentRoutes.slice(0, prIdx));
+        const parentPathComponents = fullPath.split('/');
+        const parentPath = `${parentPathComponents.slice(0, parentPathComponents.length - 2).join('/')}/`;
+        const parentRoute = getRoute(ROUTES, parentPath);
+        return (
+          <Popover2
+              interactionKind={Popover2InteractionKind.HOVER}
+              minimal
+              content={fullPath !== '/' && (parentRoute?.entry.children ?? []).length > 0
+                ? <Menu>
+                    <NavMenuContents
+                      entries={parentRoute!.entry.children!}
+                      parentRoutes={route.parentRoutes.slice(0, prIdx)}
+                      currentPath={fullPath}
+                      onNavigate={onNavigate}
+                    />
+                  </Menu>
+                : undefined}
+              placement="bottom">
+            <Button
+                outlined
+                small
+                icon={prIdx === 0 ? 'help' : undefined}
+                rightIcon="chevron-right"
+                disabled={!onNavigate}
+                onClick={onNavigate ? e => onNavigate!(e, fullPath) : undefined}>
+              {pr.title}
+            </Button>
+          </Popover2>
+        )
+      })}
+    </ButtonGroup>
+  );
+}
 
 
 const DocsPageTitle: React.FC<{ uri: string }> = function ({ uri }) {
