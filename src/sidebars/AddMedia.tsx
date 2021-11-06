@@ -28,7 +28,7 @@ function () {
     const selectedFiles: ObjectDataset = await requestFileFromFilesystem({
       prompt: "Choose images to add to this entry’s illustration collection",
       allowMultiple: false,
-      filters: [{ name: "PNG and JPEG images", extensions: ['png', 'jpeg', 'jpg'] }],
+      filters: [{ name: "PNG, JPEG, SVG images", extensions: ['png', 'jpeg', 'jpg', 'svg'] }],
     });
 
     log.info("Got files", selectedFiles);
