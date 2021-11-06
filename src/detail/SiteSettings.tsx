@@ -7,8 +7,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Button, ControlGroup, FormGroup, InputGroup, Menu, MenuDivider, MenuItem, NonIdealState } from '@blueprintjs/core';
 import { Popover2 } from '@blueprintjs/popover2';
 import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';
-import { BufferDataset } from '@riboseinc/paneron-extension-kit/types/buffers';
-import { ObjectChangeset } from '@riboseinc/paneron-extension-kit/types/objects';
+import { ObjectChangeset, ObjectDataset } from '@riboseinc/paneron-extension-kit/types/objects';
 
 import deploymentSetup from '../deployment';
 import useSiteSettings from '../site-settings/useSiteSettings';
@@ -193,7 +192,7 @@ const SVGFileInputWithPreview: React.FC<{
   onContentsChange?: (blob: string) => void
 }> = function ({ text, contentsBlob, onContentsChange }) {
 
-  const { performOperation, requestFileFromFilesystem, useDecodedBlob } = useContext(DatasetContext);
+  const { performOperation, requestFileFromFilesystem } = useContext(DatasetContext);
 
   const [previewDataURL, setPreviewDataURL] = useState<null | string>(null);
 
@@ -217,7 +216,7 @@ const SVGFileInputWithPreview: React.FC<{
       return;
     }
 
-    const result: BufferDataset = await requestFileFromFilesystem({
+    const result: ObjectDataset = await requestFileFromFilesystem({
       prompt: "Please choose a reasonably lightweight SVG file",
       filters: [{ name: "Images", extensions: ['svg'] }],
     });
@@ -231,7 +230,7 @@ const SVGFileInputWithPreview: React.FC<{
       throw new Error("More or fewer than one file was selected");
     }
 
-    const fileContents = useDecodedBlob({ blob: chosenFile }).asString;
+    const fileContents = chosenFile.asString;
 
     //log.info("File contents", fileContents);
 

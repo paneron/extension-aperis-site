@@ -6,7 +6,7 @@ import React, { useContext } from 'react';
 import { jsx } from '@emotion/react';
 import { Button } from '@blueprintjs/core';
 import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';
-import { BufferDataset } from '@riboseinc/paneron-extension-kit/types/buffers';
+import { ObjectDataset } from '@riboseinc/paneron-extension-kit/types/objects';
 import { AperisContext } from '../context';
 import { getAddMediaChangeset } from '../update';
 
@@ -25,7 +25,7 @@ function () {
       throw new Error("Unable to update entry: function not available");
     }
 
-    const selectedFiles: BufferDataset = await requestFileFromFilesystem({
+    const selectedFiles: ObjectDataset = await requestFileFromFilesystem({
       prompt: "Choose images to add to this entry’s illustration collection",
       allowMultiple: false,
       filters: [{ name: "PNG and JPEG images", extensions: ['png', 'jpeg', 'jpg'] }],

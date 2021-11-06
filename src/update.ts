@@ -5,21 +5,21 @@ import path from 'path';
 import { ObjectChange, ObjectChangeset } from '@riboseinc/paneron-extension-kit/types/objects';
 
 import { SourceEntryType } from './types';
-import { BufferDataset } from '@riboseinc/paneron-extension-kit/types/buffers';
+import { ObjectDataset } from '@riboseinc/paneron-extension-kit/types/objects';
 import { getMediaDir } from './util';
 
 
 export function getAddMediaChangeset(
   entryType: SourceEntryType,
   entryPath: string,
-  mediaBufferDataset: BufferDataset,
+  mediaBufferDataset: ObjectDataset,
 ): ObjectChangeset {
   let changeset: ObjectChangeset = {};
 
   const entryMediaPath = getMediaDir(entryType, entryPath);
 
   for (const [objectPath, objectData] of Object.entries(mediaBufferDataset)) {
-    if (objectData === null) {
+    if (objectData === null && objectData === undefined) {
       continue;
     }
 
@@ -28,7 +28,7 @@ export function getAddMediaChangeset(
 
     changeset[targetPath] = {
       oldValue: undefined,
-      newValue: { binaryData: objectData },
+      newValue: objectData,
     } as ObjectChange;
   }
 
