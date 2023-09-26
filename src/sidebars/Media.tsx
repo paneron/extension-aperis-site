@@ -18,7 +18,11 @@ const Media: React.VoidFunctionComponent<{
   onChooseItem?: (relativeMediaFilename: string) => void
 }> =
 function ({ onChooseItem }) {
-  const { previewedMediaPath, previewMediaPath, lastSelectedSourceEntry: { type: entryType, path: selectedPath } } = useContext(AperisContext);
+  const {
+    previewedMediaPath,
+    previewMediaPath,
+    lastSelectedSourceEntry: { type: entryType, path: selectedPath },
+  } = useContext(AperisContext);
 
   if (entryType !== 'page' && entryType !== 'post') {
     return <div css={css`padding: 15px;`}>Not applicable.</div>;
