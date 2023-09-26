@@ -1,4 +1,4 @@
-import { ObjectChangeset } from '@riboseinc/paneron-extension-kit/types/objects';
+import type { ObjectChangeset } from '@riboseinc/paneron-extension-kit/types/objects';
 import type { SiteSettings } from '../types';
 
 

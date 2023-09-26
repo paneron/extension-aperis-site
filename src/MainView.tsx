@@ -1,7 +1,7 @@
 /** @jsx jsx */
 /** @jsxFrag React.Fragment */
 
-import update, { Spec } from 'immutability-helper';
+import update, { type Spec } from 'immutability-helper';
 //import log from 'electron-log';
 import { useContext, useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';

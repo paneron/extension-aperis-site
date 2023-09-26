@@ -6,13 +6,13 @@ import React from 'react';
 
 import {
   AnchorButton,
-  AnchorButtonProps,
+  type AnchorButtonProps,
   Classes, Colors,
   ControlGroup, Divider, HTMLSelect, InputGroup, Button,
 } from '@blueprintjs/core';
 import { Tooltip2 as Tooltip } from '@blueprintjs/popover2';
 
-import { MenuBarProps, MenuButtonFactory } from '@riboseinc/reprose/author/menu';
+import { type MenuBarProps, MenuButtonFactory } from '@riboseinc/reprose/author/menu';
 
 import code from '@riboseinc/reprose/features/code/author';
 import blocky from '@riboseinc/reprose/features/blocky/author';
@@ -23,14 +23,14 @@ import admonition from '@riboseinc/reprose/features/admonition/author';
 import lists from '@riboseinc/reprose/features/lists/author';
 import links, {
   DEFAULT_SCHEMAS,
-  LinkAttributeEditorProps,
-  LinkSchema,
+  type LinkAttributeEditorProps,
+  type LinkSchema,
 } from '@riboseinc/reprose/features/links/author';
 import image from '@riboseinc/reprose/features/image/author';
 
-import BaseEditor, { EditorProps } from '@riboseinc/reprose/author/editor';
+import BaseEditor, { type EditorProps } from '@riboseinc/reprose/author/editor';
 
-import { LinkNodeAttrs } from '@riboseinc/reprose/features/links/schema';
+import { type LinkNodeAttrs } from '@riboseinc/reprose/features/links/schema';
 import { getContentsSchema, getImageFeatureOptions, summarySchema } from './schema';
 import { FieldWithErrors } from '../formValidation';
 import MenuWrapper from '../widgets/MenuWrapper';

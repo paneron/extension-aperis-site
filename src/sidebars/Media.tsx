@@ -6,7 +6,7 @@ import React, { useContext } from 'react';
 import { jsx, css } from '@emotion/react';
 import makeSearchResultList from '@riboseinc/paneron-extension-kit/widgets/SearchResultList';
 import { AperisContext } from '../context';
-import { DeserializedMediaItem, SourceEntryType } from '../types';
+import type { DeserializedMediaItem, SourceEntryType } from '../types';
 import MediaItem from '../lists/MediaItem';
 import { getMediaDir, posixBasename } from '../util';
 import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';

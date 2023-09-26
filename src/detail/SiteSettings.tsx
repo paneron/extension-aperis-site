@@ -7,11 +7,11 @@ import React, { useState, useEffect, useContext } from 'react';
 import { Button, ControlGroup, FormGroup, InputGroup, Menu, MenuDivider, MenuItem, NonIdealState } from '@blueprintjs/core';
 import { Popover2 } from '@blueprintjs/popover2';
 import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';
-import { ObjectChangeset, ObjectDataset } from '@riboseinc/paneron-extension-kit/types/objects';
+import type { ObjectChangeset, ObjectDataset } from '@riboseinc/paneron-extension-kit/types/objects';
 
 import deploymentSetup from '../deployment';
 import useSiteSettings from '../site-settings/useSiteSettings';
-import { SiteSettings } from '../types';
+import type { SiteSettings } from '../types';
 import { toObjectChangeset } from '../site-settings/util';
 import { SETTINGS_STUB } from '../site-settings/constants';
 import { DetailWrapper } from './util';
