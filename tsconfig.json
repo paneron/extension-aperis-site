@@ -3,6 +3,10 @@
       "target": "es2019",
       "module": "esnext",
       "moduleResolution": "node",
+      "lib": [
+        "es2022",
+        "DOM"
+      ],
 
       "strict": true,
       "noUnusedLocals": true,
