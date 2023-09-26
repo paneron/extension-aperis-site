@@ -1,6 +1,6 @@
 import yaml from 'js-yaml';
 import getAperisSetupChangeset from './aperisBase';
-import { DeploymentSetup } from './types';
+import type { DeploymentSetup } from './types';
 
 
 const setup: DeploymentSetup = {
