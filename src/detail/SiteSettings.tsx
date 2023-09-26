@@ -186,7 +186,8 @@ const SiteSettings: React.FC<Record<never, never>> = function () {
 const Buffer = require('electron').remote.getGlobal('Buffer');
 
 
-const SVGFileInputWithPreview: React.FC<{
+
+const SVGFileInputWithPreview: React.VoidFunctionComponent<{
   text: string
   contentsBlob: string
   onContentsChange?: (blob: string) => void
