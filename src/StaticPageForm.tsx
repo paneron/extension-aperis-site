@@ -1,7 +1,7 @@
 /** @jsx jsx */
 /** @jsxFrag React.Fragment */
 
-import log from 'electron-log';
+//import log from 'electron-log';
 import { css, jsx } from '@emotion/react';
 import React, { useContext, useEffect, useState } from 'react';
 
@@ -99,7 +99,7 @@ function ({
     originalData?.summary && isProseMirrorStructure(originalData.summary)
       ? originalData.summary.doc
       : null;
-  //log.debug("Doc page data", pageData);
+  //console.debug("Doc page data", pageData);
 
   return (
     <DetailWrapper>
@@ -140,7 +140,7 @@ function ({
             ((newDoc) => updateEditedData({ ...page!, summary: { doc: newDoc } }))
             : undefined}
           initialDoc={initialSummary || PROSEMIRROR_DOC_STUB }
-          logger={log}
+          logger={console}
         />
       </PageSection>
 
@@ -158,7 +158,7 @@ function ({
             ? ((newDoc) => updateEditedData({ ...page!, contents: { doc: newDoc } }))
             : undefined}
           initialDoc={initialContents ?? PROSEMIRROR_DOC_STUB}
-          logger={log}
+          logger={console}
         />
       </PageSection>
 

@@ -1,7 +1,7 @@
 /** @jsx jsx */
 /** @jsxFrag React.Fragment */
 
-import log from 'electron-log';
+//import log from 'electron-log';
 import { Button, ButtonGroup, NonIdealState } from '@blueprintjs/core';
 import { jsx, css } from '@emotion/react';
 import { useContext, useState } from 'react';
@@ -54,7 +54,7 @@ const LandingPageDetail: SourceEntryView<LandingPage> = function ({ entryData, e
           ((newDoc) => updateEditedData({ ...data!, welcomeNotice: { doc: newDoc } }))
           : undefined}
         initialDoc={initialWelcomeMessage || PROSEMIRROR_DOC_STUB }
-        logger={log}
+        logger={console}
       />
 
       <MenuWrapper>

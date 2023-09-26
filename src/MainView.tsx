@@ -2,7 +2,7 @@
 /** @jsxFrag React.Fragment */
 
 import update, { Spec } from 'immutability-helper';
-import log from 'electron-log';
+//import log from 'electron-log';
 import { useContext, useEffect, useState } from 'react';
 import { css, jsx } from '@emotion/react';
 
@@ -20,7 +20,7 @@ import { getSourceEntryType, validateEntryPath } from './util';
 import NewTabMenu from './NewTabMenu';
 
 
-Object.assign(console, log);
+//Object.assign(console, log);
 
 const TabbedWorkspaceContextProvider = makeTabbedWorkspaceContextProvider<Protocol, SidebarID>(
   'Search',

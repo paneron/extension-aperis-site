@@ -1,7 +1,7 @@
 /** @jsx jsx */
 /** @jsxFrag React.Fragment */
 
-import log from 'electron-log';
+//import log from 'electron-log';
 import { css, jsx } from '@emotion/react';
 import React, { useState, useEffect, useContext } from 'react';
 import { Button, ControlGroup, FormGroup, InputGroup, Menu, MenuDivider, MenuItem, NonIdealState } from '@blueprintjs/core';
@@ -34,11 +34,11 @@ const SiteSettings: React.FC<Record<never, never>> = function () {
     try {
       changeset = setup.getChangeset(settings, remove);
     } catch (e) {
-      log.error("Unable to retrieve changeset for deployment setup with ID", setupID);
+      //console.error("Unable to retrieve changeset for deployment setup with ID", setupID);
       throw new Error(`Unable to retrieve changeset for deployment setup ${setupID}`);
     }
 
-    log.debug("Deployment changeset", JSON.stringify(changeset));
+    //console.debug("Deployment changeset", JSON.stringify(changeset));
 
     const commitMessage = remove
       ? `Remove deployment setup ${setup.title}`
@@ -63,7 +63,7 @@ const SiteSettings: React.FC<Record<never, never>> = function () {
       await _handleWriteDeploymentSetup(editedSettings.deploymentSetup, editedSettings, false);
     }
 
-    log.debug("Site settings changeset", toObjectChangeset(editedSettings));
+    //console.debug("Site settings changeset", toObjectChangeset(editedSettings));
 
     await updateObjects({
       commitMessage: "Update site settings",
@@ -197,17 +197,14 @@ const SVGFileInputWithPreview: React.FC<{
   const [previewDataURL, setPreviewDataURL] = useState<null | string>(null);
 
   useEffect(() => {
-    //log.silly("Converting SVG contents to base64", Buffer);
     let base64string: string;
     try {
       base64string = Buffer.from(contentsBlob, 'utf-8').toString('base64');
     } catch (e) {
-      log.error("Failed to convert SVG contents to base64", e);
+      console.error("Failed to convert SVG contents to base64", e);
       return;
     }
-    //log.silly("Creating a data URI from base64");
     const dataURL = `data:image/svg+xml;base64,${base64string}`;
-    //log.silly("Got data URI", dataURL);
     setPreviewDataURL(dataURL);
   }, [contentsBlob]);
 
@@ -232,7 +229,7 @@ const SVGFileInputWithPreview: React.FC<{
 
     const fileContents = chosenFile.asString;
 
-    //log.info("File contents", fileContents);
+    //console.info("File contents", fileContents);
 
     onContentsChange(fileContents);
   }

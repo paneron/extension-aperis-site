@@ -1,7 +1,7 @@
 /** @jsx jsx */
 /** @jsxFrag React.Fragment */
 
-import log from 'electron-log';
+//import log from 'electron-log';
 import React, { useContext } from 'react';
 import { jsx } from '@emotion/react';
 import { Button } from '@blueprintjs/core';
@@ -31,7 +31,7 @@ function () {
       filters: [{ name: "PNG, JPEG, SVG images", extensions: ['png', 'jpeg', 'jpg', 'svg'] }],
     });
 
-    log.info("Got files", selectedFiles);
+    //log.info("Got files", selectedFiles);
 
     const objectChangeset = getAddMediaChangeset(entryType, entryPath, selectedFiles);
 

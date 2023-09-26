@@ -1,4 +1,4 @@
-import log from 'electron-log';
+//import log from 'electron-log';
 import { useContext } from 'react';
 import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';
 import { ValueHook } from '@riboseinc/paneron-extension-kit/types';
@@ -13,7 +13,8 @@ ValueHook<T | null> {
   const resp = useObjectData({ objectPaths: [pagePath] });
 
   if (!pagePath.endsWith('index.yaml')) {
-    log.error("useSingleDocPageData: Invalid page path (doesn’t end with index.yaml)", pagePath);
+    console.error("useSingleDocPageData: Invalid page path (doesn’t end with index.yaml)", pagePath);
+    throw new Error(`useSingleDocPageData: Invalid page path (doesn’t end with index.yaml): ${pagePath}`);
   }
 
   return {
