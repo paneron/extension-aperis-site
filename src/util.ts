@@ -1,4 +1,3 @@
-import path from 'path';
 import { SourceEntryType } from './types';
 
 
@@ -34,11 +33,6 @@ export function getParentPagePath(ofPath: string): string | null {
   ];
   const parentPath = parentPathComponents.join('/');
   return parentPath;
-}
-
-
-export function stripSlashes(somePosixPath: string): string {
-  return path.dirname(`/${somePosixPath}`).replace(/^\//, '').replace(/\/$/, '');
 }
 
 
