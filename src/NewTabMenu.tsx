@@ -13,7 +13,10 @@ import useHasRootEntries from './useHasRootEntries';
 const NewTabMenu: React.FC<Record<never, never>> = function () {
   const { spawnTab } = useContext(TabbedWorkspaceContext);
   const { siteSettings, operations } = useContext(AperisContext);
-  const { landingPage: landingExists, topLevelPage: topLevelStaticPageExists } = useHasRootEntries();
+  const {
+    landingPage: landingExists,
+    topLevelPage: topLevelStaticPageExists,
+  } = useHasRootEntries();
 
   const pageItem = topLevelStaticPageExists === true
     ? <MenuItem
