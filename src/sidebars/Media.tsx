@@ -4,12 +4,14 @@
 //import log from 'electron-log';
 import React, { useContext } from 'react';
 import { jsx, css } from '@emotion/react';
+import { Spinner } from '@blueprintjs/core';
 import makeSearchResultList from '@riboseinc/paneron-extension-kit/widgets/SearchResultList';
+import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';
 import { AperisContext } from '../context';
 import type { DeserializedMediaItem, SourceEntryType } from '../types';
 import MediaItem from '../lists/MediaItem';
-import { getMediaDir, posixBasename } from '../util';
-import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';
+import SVGPreview from '../widgets/SVGPreview';
+import { getMime, getMediaDir, posixBasename } from '../util';
 
 
 /** Selected entry media list. Can be used in a sidebar. */
@@ -68,16 +70,26 @@ const MediaPreview: React.VoidFunctionComponent<{
   entryPath: string
   mediaPath: string
   className?: string
-}> =
-function ({ entryType, entryPath, mediaPath, className }) {
-  const { makeAbsolutePath } = useContext(DatasetContext);
+}> = function ({ entryType, entryPath, mediaPath, className }) {
+  const { useObjectData } = useContext(DatasetContext);
   const mediaDir = getMediaDir(entryType, entryPath);
-  const mediaDirAbsolute = makeAbsolutePath(mediaDir);
   const mediaBasename = posixBasename(mediaPath);
+  const _mediaPath = `${mediaDir}/${mediaBasename}`;
+  const data = useObjectData({ objectPaths: [_mediaPath] }).value.data[_mediaPath];
+  const mime = getMime(mediaBasename);
 
-  return (
-    <img src={`file://${mediaDirAbsolute}/${mediaBasename}`} className={className} />
-  );
+  if (data && mime) {
+    if (data?.asBase64) {
+      return <img src={`data:${mime};base64,${data.asBase64}`} className={className} />;
+    } else if (mime.startsWith('image/svg') && data?.asText) {
+      return <SVGPreview svgData={data.asText} className={className} />
+    } else {
+      return <Spinner />;
+    }
+  } else {
+    //throw new Error(`Unable to determine data URI MIME for ${mediaBasename}`);
+    return <Spinner />;
+  }
 }
 
 
