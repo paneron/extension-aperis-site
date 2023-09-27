@@ -188,7 +188,9 @@ const Buffer = require('electron').remote.getGlobal('Buffer');
 
 
 const SVGFileInputWithPreview: React.VoidFunctionComponent<{
+  /** Button label. */
   text: string
+  /** Not really a blob—rather, text representation of the SVG. (Misnomer.) */
   contentsBlob: string
   onContentsChange?: (blob: string) => void
 }> = function ({ text, contentsBlob, onContentsChange }) {
