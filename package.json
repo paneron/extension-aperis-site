@@ -40,7 +40,7 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@riboseinc/paneron-extension-kit": "2.2.5",
-    "@riboseinc/reprose": "^1.0.0-alpha11",
+    "@riboseinc/reprose": "1.0.0",
     "@types/dagre": "^0.7.46",
     "@types/prosemirror-commands": "^1.0.3",
     "@types/prosemirror-inputrules": "^1.0.3",

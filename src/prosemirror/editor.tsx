@@ -2,7 +2,7 @@
 /** @jsxFrag React.Fragment */
 
 import { ClassNames, css, jsx } from '@emotion/react';
-import React from 'react';
+import React, { useMemo, useCallback, useContext } from 'react';
 
 import {
   AnchorButton,
@@ -11,6 +11,8 @@ import {
   ControlGroup, Divider, HTMLSelect, InputGroup, Button,
 } from '@blueprintjs/core';
 import { Tooltip2 as Tooltip } from '@blueprintjs/popover2';
+
+import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';
 
 import { type MenuBarProps, MenuButtonFactory } from '@riboseinc/reprose/author/menu';
 
@@ -31,7 +33,9 @@ import image from '@riboseinc/reprose/features/image/author';
 import BaseEditor, { type EditorProps } from '@riboseinc/reprose/author/editor';
 
 import { type LinkNodeAttrs } from '@riboseinc/reprose/features/links/schema';
-import { getContentsSchema, getImageFeatureOptions, summarySchema } from './schema';
+
+import { toBase64 } from '../util';
+import { getContentsSchema, getImageFeatureOptions2, summarySchema } from './schema';
 import { FieldWithErrors } from '../formValidation';
 import MenuWrapper from '../widgets/MenuWrapper';
 //import { RepositoryViewProps } from '@riboseinc/paneron-extension-kit/types';
@@ -59,18 +63,53 @@ export const SummaryEditor: React.FC<FinalEditorProps> = function (props) {
 };
 
 export const ContentsEditor: React.FC<FinalEditorProps & {
+  /**
+   * Dataset-relative POSIX path that serves as media prefix for current document.
+   */
   mediaDir: string,
-  onChooseImageClick?: (e: MouseEvent) => Promise<string | undefined>,
-}> = function (props) {
+  onChooseImageClick: (e: MouseEvent) => Promise<string | undefined>,
+}> = React.memo(function (props) {
+  const { performOperation, getObjectData, getBlob } = useContext(DatasetContext);
 
-  const schema = getContentsSchema({ protocol: `file://`, imageDir: props.mediaDir });
+  const asBase64 = useCallback(async function asBase64(objPath: string) {
+    const d = (await getObjectData({ objectPaths: [objPath] })).data[objPath];
+    if (d) {
+      if (d.asBase64) {
+        return d.asBase64;
+      } else if (d.asText && getBlob) {
+        return toBase64(await getBlob(d.asText));
+      } else {
+        throw new Error(`Unable to obtain Base64 representation media contents at ${objPath}`);
+      }
+    } else {
+      throw new Error(`Unable to fetch media contents at ${objPath}`);
+    }
+  }, [getObjectData]);
 
-  async function requestImageURL(e: MouseEvent) {
-    return await props.onChooseImageClick!(e);
-  }
+  const imageFeatureSchemaOpts = useMemo((() =>
+    getImageFeatureOptions2(props.mediaDir, asBase64)
+  ), [props.mediaDir, asBase64]);
+
+  const schema = useMemo((() =>
+    getContentsSchema({ image: imageFeatureSchemaOpts })
+  ), [imageFeatureSchemaOpts]);
+
+  const requestImageURL = useCallback(performOperation('inserting image', async function requestImageURL(e: MouseEvent) {
+    if (!props.onChooseImageClick) {
+      throw new Error("Cannot pick an image");
+    }
+
+    const url = await props.onChooseImageClick?.(e);
+
+    if (!url) {
+      throw new Error("Failed to pick an image: empty URL was obtained");
+    }
+    return url;
+  }), [props.onChooseImageClick]);
+
   return (
     <ClassNames>
-      {({ css, cx }) => (
+      {useCallback((({ css, cx }) => (
         <Editor
           schema={schema}
           features={[
@@ -81,12 +120,16 @@ export const ContentsEditor: React.FC<FinalEditorProps & {
             admonition,
             emphasis,
             code({ allowBlocks: true }),
-            ...(props.onChooseImageClick
-                  ? [image({
-                      requestImageURL,
-                      ...getImageFeatureOptions(`file://`, props.mediaDir),
-                    })]
-                  : []),
+            image({
+              requestImageURL,
+              ...imageFeatureSchemaOpts,
+            }),
+            //...(props.onChooseImageClick
+            //      ? [image({
+            //          requestImageURL,
+            //          ...imageFeatureSchemaOpts,
+            //        })]
+            //      : []),
             links({
               LinkEditor,
               schemas: {
@@ -95,16 +138,21 @@ export const ContentsEditor: React.FC<FinalEditorProps & {
               },
               floatingLinkEditorClassName: `
                 ${Classes.ELEVATION_4}
-                ${css({ zIndex: 3, position: 'fixed', borderRadius: '0 .3rem .3rem .3rem', overflow: 'hidden' })}
+                ${css({
+                  zIndex: 3,
+                  position: 'fixed',
+                  borderRadius: '0 .3rem .3rem .3rem',
+                  overflow: 'hidden',
+                })}
               `,
             }),
           ]}
           {...props}
         />
-      )}
+      )), [schema, requestImageURL, imageFeatureSchemaOpts, ...Object.entries(props).flat().sort()])}
     </ClassNames>
   );
-};
+});
 
 
 // Base editor
@@ -308,6 +356,9 @@ const LinkEditor: React.FC<LinkAttributeEditorProps> = function ({ React, schema
   const [validationErrors, setValidationErrors] = React.useState<string[]>([]);
   const attr = editedAttrs || attrs;
 
+  // XXX?
+  const { openExternalLink } = React.useContext(DatasetContext);
+
   async function handleConfirm() {
     const schema = schemas[attrs.schemaID];
     if (editedAttrs && schema) {
@@ -316,8 +367,8 @@ const LinkEditor: React.FC<LinkAttributeEditorProps> = function ({ React, schema
     }
   }
 
-  function openURL(url: string) {
-    require('electron').shell.openExternal(url);
+  function openURL(uri: string) {
+    openExternalLink({ uri });
   }
 
   React.useEffect(() => {

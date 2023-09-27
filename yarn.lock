@@ -1175,10 +1175,10 @@
   resolved "https://registry.yarnpkg.com/@riboseinc/paneron-extension-kit/-/paneron-extension-kit-2.2.5.tgz#acab154c6c7cb27385e30c72b336a15c31eaad35"
   integrity sha512-zMGQjlrwL1XdOGFMDDkWIsQ48AEkltl2xxi9kkavt4pfA7yMhaBQuUZoLj2LUpgH9V51s1zeMlagrmvgvYu2Hw==
 
-"@riboseinc/reprose@^1.0.0-alpha11":
-  version "1.0.0-alpha11"
-  resolved "https://registry.yarnpkg.com/@riboseinc/reprose/-/reprose-1.0.0-alpha11.tgz#b85e8f23afcf138669f403c9df6604c756f307e9"
-  integrity sha512-QwQt7p2ZvKOtMUVtOCLnd0wfvu5Zu3EZoOCkTzZqjLwtFJGBwylP/ZcYiNpK4uNs4T65PgasLoKANjwCt1b5rQ==
+"@riboseinc/reprose@1.0.0":
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/@riboseinc/reprose/-/reprose-1.0.0.tgz#56dd6fed9167536ef68c68c0492290328c3e7435"
+  integrity sha512-L/7qpnZR8uZrInFYS9nK5rTqVmSF6adQsFBLkWh7pAIYy3/nthmCxUteOMLgNZNFIyXgPTlrEgRyJ1dFkcEo6A==
   dependencies:
     "@babel/polyfill" "^7.11.5"
     "@emotion/styled" "^11.3.0"
@@ -1190,8 +1190,8 @@
     prosemirror-schema-list "^1.1.4"
     prosemirror-state "^1.3.3"
     prosemirror-tables "^1.1.1"
-    react "^16.11.0"
-    react-dom "^16.11.0"
+    react "^17.0.2"
+    react-dom "^17.0.2"
     react-json-view "^1.21.3"
 
 "@types/d3-array@*":
