@@ -28,7 +28,7 @@ const TabbedWorkspaceContextProvider = makeTabbedWorkspaceContextProvider<Protoc
   protocolRegistry);
 
 
-export default function () {
+export default function AperisMainView () {
   const [lastSelectedSourceEntryPath, selectSourceEntryPath] = useState('/index.yaml');
 
   const [previewedMediaPath, previewMediaPath] = useState<string | undefined>(undefined);
