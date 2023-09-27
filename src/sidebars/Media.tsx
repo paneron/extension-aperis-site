@@ -16,8 +16,7 @@ import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';
 const Media: React.VoidFunctionComponent<{
   /** Invoked with a media filename (relative to media dir) if it’s opened (double-click or otherwise). */
   onChooseItem?: (relativeMediaFilename: string) => void
-}> =
-function ({ onChooseItem }) {
+}> = React.memo(function ({ onChooseItem }) {
   const {
     previewedMediaPath,
     previewMediaPath,
@@ -59,7 +58,7 @@ function ({ onChooseItem }) {
       </div>
     </div>
   );
-};
+});
 
 export default Media;
 

@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import type { LandingPage, StaticPage } from './types';
 import useSingleSourceEntryData from './useSingleSourceEntryData';
 
@@ -16,8 +17,8 @@ export default function useHasRootEntries():
     ? undefined
     : landingPageResp.value !== null;
 
-  return {
+  return useMemo((() => ({
     landingPage: landingExists,
     topLevelPage: topLevelStaticPageExists,
-  };
+  })), [landingExists, topLevelStaticPageExists]);
 }

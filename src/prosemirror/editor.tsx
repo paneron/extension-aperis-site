@@ -110,7 +110,7 @@ export const ContentsEditor: React.FC<FinalEditorProps & {
 // Base editor
 
 const Editor: React.FC<FinalEditorProps & Pick<EditorProps<any>, 'features' | 'schema'>> =
-function (props) {
+React.memo(function (props) {
   return (
     <div
         className={props.className}
@@ -229,7 +229,7 @@ function (props) {
       </ClassNames>
     </div>
   );
-};
+});
 
 
 // Menu bar

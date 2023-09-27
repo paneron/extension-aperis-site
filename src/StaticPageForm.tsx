@@ -3,7 +3,7 @@
 
 //import log from 'electron-log';
 import { css, jsx } from '@emotion/react';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 
 import {
   Button, ButtonGroup, Colors,
@@ -81,14 +81,13 @@ function ({
     }
   }
 
-
-  async function handleChooseImage(e: MouseEvent): Promise<string | undefined> {
+  const handleChooseImage = useCallback(async function handleChooseImage(): Promise<string | undefined> {
     if (previewedMediaPath) {
       return posixBasename(previewedMediaPath);
     } else {
       return undefined;
     }
-  }
+  }, [previewedMediaPath]);
 
   const initialContents: Record<string, any> | null =
     originalData?.contents && isProseMirrorStructure(originalData.contents)
