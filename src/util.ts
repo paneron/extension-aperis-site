@@ -1,4 +1,4 @@
-import { SourceEntryType } from './types';
+import type { SourceEntryType } from './types';
 
 
 /**
