@@ -1,9 +1,11 @@
 import { makeExtension } from '@riboseinc/paneron-extension-kit';
+import MainView from './MainView';
+import datasetInitializer from './migrations/initial';
 
 export default makeExtension({
-  mainView: () => import('./MainView'),
+  mainView: MainView,
   name: "Aperis site",
-  requiredHostAppVersion: "^1.0.0-beta1",
+  requiredHostAppVersion: "^2.0.0",
   datasetMigrations: {},
-  datasetInitializer: () => import('./migrations/initial'),
+  datasetInitializer,
 });

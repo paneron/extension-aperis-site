@@ -24,40 +24,35 @@
     "title": "Aperis",
     "iconURL": "https://www.aperis.org/mark.png",
     "featured": true,
-    "requiredHostAppVersion": "1.0.0-beta12"
+    "requiredHostAppVersion": "^2.0.0"
   },
   "resolutions": {
-    "@types/react": "16.9.49"
+    "@types/react": "17.0.53"
   },
   "devDependencies": {
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.4.0",
     "@babel/preset-env": "^7.4.2",
-    "@blueprintjs/core": "^3.42.0",
-    "@blueprintjs/icons": "^3.26.0",
-    "@blueprintjs/popover2": "^0.9.0",
-    "@blueprintjs/select": "^3.13.3",
-    "@emotion/react": "^11.4.0",
-    "@emotion/styled": "11.3.0",
-    "@riboseinc/paneron-extension-kit": "2.0.0-alpha20",
+    "@blueprintjs/core": "~4.17.8",
+    "@blueprintjs/icons": "~4.14.5",
+    "@blueprintjs/popover2": "~1.13.12",
+    "@blueprintjs/select": "~4.9.12",
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@riboseinc/paneron-extension-kit": "2.2.5",
     "@riboseinc/reprose": "^1.0.0-alpha11",
     "@types/dagre": "^0.7.46",
-    "@types/fs-extra": "^9.0.1",
-    "@types/js-yaml": "^3.12.5",
-    "@types/node": "^14.11.2",
     "@types/prosemirror-commands": "^1.0.3",
     "@types/prosemirror-inputrules": "^1.0.3",
     "@types/prosemirror-model": "^1.7.4",
     "@types/prosemirror-schema-basic": "^1.0.1",
     "@types/prosemirror-schema-list": "^1.0.1",
-    "@types/react": "16.9.49",
+    "@types/react": "17.0.53",
     "dagre": "^0.8.5",
-    "electron": "11.4.11",
-    "electron-log": "^4.3.0",
     "immutability-helper": "^3.1.1",
-    "react": "^16.11.0",
+    "react": "^17.0.2",
     "react-flow-renderer": "9.6.4",
-    "typescript": "^4.0.2"
+    "typescript": "~4.6.0"
   },
   "license": "MIT"
 }

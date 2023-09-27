@@ -7,6 +7,12 @@ const ROBOTS = "User-agent: *";
 
 function getAperisSetupChangeset(settings: SiteSettings, remove: boolean): ObjectChangeset {
 
+  const encoder = new TextEncoder();
+
+  function stringToBinary(str: string): { binaryData: Uint8Array } {
+    return { binaryData: encoder.encode(str) };
+  }
+
   const indexRoutePlaceholder = settings.siteURLPrefix
     ? `{ path: '/', template: '_DocPage' }, { path: '404', template: '_DocPage' }, `
     : '';
@@ -19,18 +25,18 @@ function getAperisSetupChangeset(settings: SiteSettings, remove: boolean): Objec
 
     '.gitignore': {
       oldValue: undefined,
-      newValue: remove ? null : `
+      newValue: remove ? null : stringToBinary(`
 _DocPage
 node_modules
 tmp
 artifacts
 dist
-      `
+      `)
     },
 
     'static.config.js': {
       oldValue: undefined,
-      newValue: remove ? null : `
+      newValue: remove ? null : stringToBinary(`
         import path from 'path'
 
         const DOCS_PATH = path.join(__dirname, 'docs');
@@ -68,12 +74,12 @@ dist
             ],
           ],
         }
-      `,
+      `),
     },
 
     'src/GlobalStyle.ts': {
       oldValue: undefined,
-      newValue: remove ? null : `
+      newValue: remove ? null : stringToBinary(`
         import { createGlobalStyle } from 'styled-components'
 
         export default createGlobalStyle\`
@@ -115,12 +121,12 @@ dist
             max-width: 100%;
           }
         \`
-      `,
+      `),
     },
 
     'src/App.tsx': {
       oldValue: undefined,
-      newValue: remove ? null : `
+      newValue: remove ? null : stringToBinary(`
         import React from 'react'
         import { Root, Routes } from 'react-static'
         import { Router } from '@reach/router'
@@ -155,12 +161,12 @@ dist
         }
 
         export default App
-      `,
+      `),
     },
 
     'src/index.tsx': {
       oldValue: undefined,
-      newValue: remove ? null : `
+      newValue: remove ? null : stringToBinary(`
         import React from 'react'
         import ReactDOM from 'react-dom'
         import { AppContainer } from 'react-hot-loader'
@@ -198,12 +204,12 @@ dist
             })
           }
         }
-      `,
+      `),
     },
 
     'public/robots.txt': {
       oldValue: undefined,
-      newValue: remove ? null : ROBOTS,
+      newValue: remove ? null : stringToBinary(ROBOTS),
     },
 
     'tsconfig.json': {

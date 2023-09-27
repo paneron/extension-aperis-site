@@ -7,8 +7,8 @@ import type { DeploymentSetup } from './types';
 // add version marker in title and and setup ID if a new variation of setup is added;
 // deprecation can be implemented later if necessary.
 const deploymentSetup: { [setupID: string]: DeploymentSetup } = {
-  gitlabPages,
-  awsGHA,
+  gitlabPages: gitlabPages(),
+  awsGHA: awsGHA(),
 };
 
 export default deploymentSetup;

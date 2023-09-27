@@ -10,8 +10,6 @@ import {
   H6, InputGroup,
 } from '@blueprintjs/core';
 
-import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';
-
 import { isProseMirrorStructure, type StaticPage } from './types';
 import { getMediaDir, posixBasename, PROSEMIRROR_DOC_STUB } from './util';
 import { ContentsEditor, SummaryEditor } from './prosemirror/editor';
@@ -43,14 +41,12 @@ function ({
   pagePath,
   onSave,
 }) {
-  const { makeAbsolutePath } = useContext(DatasetContext);
   const { previewedMediaPath } = useContext(AperisContext);
 
   const [contentsExpanded, expandContents] = useState<boolean | undefined>(true);
   const [resetCounter, updateResetCounter] = useState(0);
 
   const mediaDir = getMediaDir('page', pagePath);
-  const mediaDirAbsolute = makeAbsolutePath(mediaDir);
 
   const originalData = pageData;
   const [editedData, updateEditedData] = useState<null | StaticPage>(null);
@@ -151,8 +147,8 @@ function ({
         <ContentsEditor
           css={css`flex: 1;`}
           key={`${pagePath}=${JSON.stringify(initialContents ?? {})}-${resetCounter}-${previewedMediaPath}`}
-          mediaDir={mediaDirAbsolute}
-          onChooseImageClick={previewedMediaPath ? handleChooseImage : undefined}
+          mediaDir={mediaDir}
+          onChooseImageClick={handleChooseImage}
           onChange={canEdit
             ? ((newDoc) => updateEditedData({ ...page!, contents: { doc: newDoc } }))
             : undefined}

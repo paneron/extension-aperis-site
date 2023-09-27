@@ -1,11 +1,11 @@
-import { DatasetMigrationFunction } from '@riboseinc/paneron-extension-kit/types/migrations';
+import type { MigrationInfo } from '@riboseinc/paneron-extension-kit/types/migrations';
 
 
-const initializeDataset: DatasetMigrationFunction = async (opts) => {
-  return {
-    versionAfter: '1.0.0-alpha33',
-    bufferChangeset: {},
-  };
+const initialMigration: MigrationInfo = {
+  versionAfter: '1.0.0',
+  migrator: async function * initialMigration () {
+    yield {};
+  },
 };
 
-export default initializeDataset;
+export default initialMigration;
