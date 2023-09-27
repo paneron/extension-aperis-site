@@ -12,11 +12,11 @@ import {
 
 import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';
 
-import { isProseMirrorStructure, StaticPage } from './types';
+import { isProseMirrorStructure, type StaticPage } from './types';
 import { getMediaDir, posixBasename, PROSEMIRROR_DOC_STUB } from './util';
 import { ContentsEditor, SummaryEditor } from './prosemirror/editor';
 import MenuWrapper from './widgets/MenuWrapper';
-import { FieldWithErrors, PartialValidator } from './formValidation';
+import { FieldWithErrors, type PartialValidator } from './formValidation';
 import PageSection from './PageSection';
 import { DetailWrapper } from './detail/util';
 import { AperisContext } from './context';
