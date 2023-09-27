@@ -1,6 +1,4 @@
 // import log from 'electron-log';
-// import yaml from 'js-yaml';
-import path from 'path';
 
 import { ObjectChange, ObjectChangeset } from '@riboseinc/paneron-extension-kit/types/objects';
 
@@ -23,8 +21,8 @@ export function getAddMediaChangeset(
       continue;
     }
 
-    const relativeMediaFilename = path.posix.basename(objectPath);
-    const targetPath = path.posix.join(entryMediaPath, relativeMediaFilename);
+    const relativeMediaFilename = objectPath.split('/').at(-1);
+    const targetPath = `${entryMediaPath}/${relativeMediaFilename}`;
 
     changeset[targetPath] = {
       oldValue: undefined,
