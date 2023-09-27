@@ -1,4 +1,4 @@
-import { ProtocolRegistry } from '@riboseinc/paneron-extension-kit/widgets/TabbedWorkspace/types';
+import type { ProtocolRegistry } from '@riboseinc/paneron-extension-kit/widgets/TabbedWorkspace/types';
 
 import SourceEntry from './detail/source-entries';
 import PageGraph from './detail/PageGraph';

@@ -1,5 +1,5 @@
-import { ObjectChangeset } from '@riboseinc/paneron-extension-kit/types/objects';
-import { SiteSettings, SiteSettingsFile } from '../types';
+import type { ObjectChangeset } from '@riboseinc/paneron-extension-kit/types/objects';
+import type { SiteSettings, SiteSettingsFile } from '../types';
 import {
   DEFAULT_FOOTER_BANNER_SVG,
   DEFAULT_HEADER_BANNER_SVG,

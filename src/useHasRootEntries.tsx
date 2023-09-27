@@ -1,4 +1,4 @@
-import { LandingPage, StaticPage } from './types';
+import type { LandingPage, StaticPage } from './types';
 import useSingleSourceEntryData from './useSingleSourceEntryData';
 
 

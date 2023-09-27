@@ -3,7 +3,7 @@
 
 import React from 'react';
 import { jsx } from '@emotion/react';
-import { DeserializedMediaItem } from '../types';
+import type { DeserializedMediaItem } from '../types';
 
 
 const MediaItem: React.FC<{ objectData: DeserializedMediaItem, objectPath: string }> =

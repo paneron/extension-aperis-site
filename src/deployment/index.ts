@@ -1,6 +1,6 @@
 import awsGHA from './awsGHA';
 import gitlabPages from './gitlabPages';
-import { DeploymentSetup } from './types';
+import type { DeploymentSetup } from './types';
 
 // NOTE: Don’t modify any existing setup in a way that changes files it affects.
 // Generally, this is append-only;

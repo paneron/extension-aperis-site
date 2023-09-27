@@ -4,7 +4,7 @@
 import { Icon } from '@blueprintjs/core';
 import React from 'react';
 import { css, jsx } from '@emotion/react';
-import { SuperSidebarConfig } from '@riboseinc/paneron-extension-kit/widgets/TabbedWorkspace/types';
+import type { SuperSidebarConfig } from '@riboseinc/paneron-extension-kit/widgets/TabbedWorkspace/types';
 import HelpTooltip from '@riboseinc/paneron-extension-kit/widgets/HelpTooltip';
 import Search from './Search';
 import Subpages from './Subpages';

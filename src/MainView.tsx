@@ -10,12 +10,12 @@ import TabbedWorkspace from '@riboseinc/paneron-extension-kit/widgets/TabbedWork
 import { makeContextProvider as makeTabbedWorkspaceContextProvider } from '@riboseinc/paneron-extension-kit/widgets/TabbedWorkspace/context';
 import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';
 
-import { sidebarConfig, SidebarID, sidebarIDs } from './sidebars';
-import protocolRegistry, { Protocol, SITE_SETTINGS, SOURCE_ENTRY } from './protocolRegistry';
+import { sidebarConfig, type SidebarID, sidebarIDs } from './sidebars';
+import protocolRegistry, { type Protocol, SITE_SETTINGS, SOURCE_ENTRY } from './protocolRegistry';
 import { AperisContext } from './context';
 import type { AperisContext as AperisContextSpec } from './context';
 import useSiteSettings from './site-settings/useSiteSettings';
-import { LandingPage, Post, SourceEntryType, StaticPage } from './types';
+import type { LandingPage, Post, SourceEntryType, StaticPage } from './types';
 import { getSourceEntryType, validateEntryPath } from './util';
 import NewTabMenu from './NewTabMenu';
 
