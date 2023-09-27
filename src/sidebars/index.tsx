@@ -24,7 +24,7 @@ export const sidebarIDs = [
   'Structure',
   'Site',
   //'History',
-];
+] as const;
 
 export type SidebarID = typeof sidebarIDs[number];
 
@@ -39,19 +39,19 @@ export const sidebarConfig: SuperSidebarConfig<SidebarID> = {
       nonCollapsible: true,
     }],
   },
-  History: {
-    icon: () => <Icon icon="history" />,
-    title: "History",
-    blocks: [{
-      key: 'timestamps',
-      title: "Timestamps",
-      content: <>Coming soon</>,
-    }, {
-      key: 'commits',
-      title: "Commits",
-      content: <>Coming soon</>,
-    }],
-  },
+  // History: {
+  //   icon: () => <Icon icon="history" />,
+  //   title: "History",
+  //   blocks: [{
+  //     key: 'timestamps',
+  //     title: "Timestamps",
+  //     content: <>Coming soon</>,
+  //   }, {
+  //     key: 'commits',
+  //     title: "Commits",
+  //     content: <>Coming soon</>,
+  //   }],
+  // },
   Media: {
     icon: () => <Icon icon="media" />,
     title: "Illustrations",
