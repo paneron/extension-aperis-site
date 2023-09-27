@@ -3,11 +3,11 @@
 
 //import log from 'electron-log';
 import { css, jsx } from '@emotion/react';
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, ControlGroup, FormGroup, InputGroup, Menu, MenuDivider, MenuItem, NonIdealState } from '@blueprintjs/core';
 import { Popover2 } from '@blueprintjs/popover2';
 import { DatasetContext } from '@riboseinc/paneron-extension-kit/context';
-import type { ObjectChangeset, ObjectDataset } from '@riboseinc/paneron-extension-kit/types/objects';
+import type { ObjectChangeset } from '@riboseinc/paneron-extension-kit/types/objects';
 
 import deploymentSetup from '../deployment';
 import useSiteSettings from '../site-settings/useSiteSettings';
@@ -16,6 +16,7 @@ import { toObjectChangeset } from '../site-settings/util';
 import { SETTINGS_STUB } from '../site-settings/constants';
 import { DetailWrapper } from './util';
 import MenuWrapper from '../widgets/MenuWrapper';
+import SVGPreview from '../widgets/SVGPreview';
 
 
 const SiteSettings: React.FC<Record<never, never>> = function () {
@@ -183,10 +184,6 @@ const SiteSettings: React.FC<Record<never, never>> = function () {
 };
 
 
-const Buffer = require('electron').remote.getGlobal('Buffer');
-
-
-
 const SVGFileInputWithPreview: React.VoidFunctionComponent<{
   /** Button label. */
   text: string
@@ -197,26 +194,12 @@ const SVGFileInputWithPreview: React.VoidFunctionComponent<{
 
   const { performOperation, requestFileFromFilesystem } = useContext(DatasetContext);
 
-  const [previewDataURL, setPreviewDataURL] = useState<null | string>(null);
-
-  useEffect(() => {
-    let base64string: string;
-    try {
-      base64string = Buffer.from(contentsBlob, 'utf-8').toString('base64');
-    } catch (e) {
-      console.error("Failed to convert SVG contents to base64", e);
-      return;
-    }
-    const dataURL = `data:image/svg+xml;base64,${base64string}`;
-    setPreviewDataURL(dataURL);
-  }, [contentsBlob]);
-
   async function _handleChangeFile() {
     if (!onContentsChange || !requestFileFromFilesystem) {
       return;
     }
 
-    const result: ObjectDataset = await requestFileFromFilesystem({
+    const result = await requestFileFromFilesystem({
       prompt: "Please choose a reasonably lightweight SVG file",
       filters: [{ name: "Images", extensions: ['svg'] }],
     });
@@ -225,27 +208,23 @@ const SVGFileInputWithPreview: React.VoidFunctionComponent<{
       throw new Error("More or fewer than one file was selected");
     }
 
-    const chosenFile = Object.values(result)[0];
-    if (!chosenFile) {
-      throw new Error("More or fewer than one file was selected");
+    const fileContents = Object.values(result)[0]?.asText;
+
+    if (fileContents) {
+      onContentsChange(fileContents);
+    } else {
+      throw new Error("No file contents detected");
     }
-
-    const fileContents = chosenFile.asString;
-
-    //console.info("File contents", fileContents);
-
-    onContentsChange(fileContents);
   }
 
   const handleChangeFile = performOperation('selecting file', _handleChangeFile);
 
   return (
     <div css={css`display: flex; flex-flow: row nowrap; align-items: center; overflow: hidden;`}>
-      {previewDataURL
-        ? <img
-            src={previewDataURL}
-            css={css`width: 2rem; height: 2rem; margin-right: .5rem; flex-shrink: 0;`} />
-        : null}
+      <SVGPreview
+        svgData={contentsBlob}
+        css={css`width: 2rem; height: 2rem; margin-right: .5rem; flex-shrink: 0;`}
+      />
       <Button alignText="left" fill disabled={!onContentsChange} onClick={handleChangeFile}>
         {text}
       </Button>
