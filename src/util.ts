@@ -10,7 +10,6 @@ const MEDIA_DIR = '_media';
 
 /** Given slash-prepended dataset-relative object path, returns source entry type. */
 export function getSourceEntryType(objectPath: string): SourceEntryType {
-  console.debug("Determining entry type for", objectPath);
   if (objectPath === '/index.yaml') return 'landing';
   if (objectPath.startsWith('/pages/')) return 'page';
   if (objectPath.startsWith('/posts/')) return 'post';
