@@ -1,6 +1,31 @@
 import type { SourceEntryType } from './types';
 
 
+export function getMime(path: string): string | undefined {
+  const ext = path.split('.').at(-1);
+  return MIME_MAP[ext as keyof typeof MIME_MAP] || undefined;
+}
+
+const MIME_MAP = {
+  'jpg': 'image/jpeg',
+  'jpeg': 'image/jpeg',
+  'png': 'image/png',
+  'gif': 'image/gif',
+  'svg': 'image/svg+xml',
+} as const;
+
+
+export function toBase64(buf: Uint8Array): string {
+  const binString = Array.from(
+    buf,
+    function (x) {
+      return String.fromCodePoint(x)
+    },
+  ).join('');
+  return btoa(binString);
+}
+
+
 /**
  * For a given page or post, media/illustrations
  * will be stored in a subdirectory with this name (located next to index.yaml).
