@@ -15,6 +15,7 @@
 
       "sourceMap": true,
       "inlineSources": true,
+      "skipLibCheck": true,
 
       "allowSyntheticDefaultImports": true,
       "experimentalDecorators": true,
