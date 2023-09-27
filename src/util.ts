@@ -4,7 +4,7 @@ import type { SourceEntryType } from './types';
 /**
  * For a given page or post, media/illustrations
  * will be stored in a subdirectory with this name (located next to index.yaml).
- * */
+ */
 const MEDIA_DIR = '_media';
 
 
